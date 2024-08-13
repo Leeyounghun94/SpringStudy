@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml를 활용한 공통코드 -->
+<!-- 메핑할 인터페이스를 namespace에 넣는다. 패키지명, 인터페이스명 -->
+<mapper namespace="net.lyhcloud.mapper.TimeMapper">
+
+<!-- 안쪽에다가 쿼리문을 생성한다. -->
+
+<select id="getTimeXML" resultType="String">
+	select sysdate from dual
+
+</select>
+
+
+</mapper>
