@@ -9,7 +9,8 @@
 		
 		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 	
-	<!--	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
+	<!--	jdbclog4j2 용으로 교체
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
 			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property>	-->
 		
 		
