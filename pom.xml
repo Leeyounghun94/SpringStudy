@@ -17,7 +17,7 @@
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<artifactId>spring-context</artifactId>	<!-- 스프링 메모리 영역 -->
 			<version>${org.springframework-version}</version>
 			<exclusions>
 				<!-- Exclude Commons Logging in favor of SLF4j -->
@@ -39,6 +39,13 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
+		<!-- Test 폴더 필수 코드 -> @Test -> JUnit 메서드 별로 테스트
+			@RunWith(SpringJUnit4ClassRunner.class)	// 메서드별 테스트용(junit4) 
+			@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")	// 참고할 파일
+			@Log4j2
+	
+		-->
+		
 		<dependency>  <!--dto 객체 자동화 lombok 설정-->
 		 <groupId>org.projectlombok</groupId> 
 		 <artifactId>lombok</artifactId> 
@@ -47,7 +54,7 @@
 		 </dependency>		
 		
 				
-			<!-- JDBC 셋팅 1.드라이버 2.커넥션 풀 3.mybatis 4. jdbclog4j2 -->
+			<!-- JDBC 셋팅 1.드라이버 2.커넥션 풀(HikariCP)  3.mybatis(jdbc) 4. jdbclog4j2 -->
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>
@@ -80,7 +87,8 @@
 		
 		-->
 
-		<!-- 마이바티스 : jdbc 연동용 https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<!-- 마이바티스 : pstmt의 대체용 = jdbc 연동용 https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<!-- 마이바티스 -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis</artifactId>
@@ -114,9 +122,11 @@
 		</bean>
 	
 		<mybatis-spring:scan base-package="org.zerock.mapper"/> 
-		sql처리를 mapper에서 찾는다. 
+		"org.zerock.mapper" -> 매핑용 인터페이스 위치
+		sql처리를 mapper에서 찾는다. -> 인터페이스 + xml로 sql 처리 한다.
 				
 		-->
+		
 		<!-- 로그출력을 표형식으로 구현 https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
 		<dependency>
 		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
@@ -124,14 +134,20 @@
 		    <version>1.16</version>
 		</dependency>	
 				
-		<!-- AspectJ -->
+		<!-- root-context.xml에서 기존 코드 변경
+			<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
+			<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+				
+		-->	
+			
+		<!-- AspectJ : AOP 관련 설정(445p.) -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
 		
-		<!-- Logging 
+		<!-- Logging -> 구형 버전이므로 사용 안한다. 하단에 log4j2 코드 추가
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -216,33 +232,69 @@
 		    <version>3.1.0</version>
 		    <scope>provided</scope>
 		</dependency>
-
+			
 		
-		
-		<dependency>
+		<dependency>	<!-- 프론트를 jsp로 사용-->
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		
+		<dependency> <!-- jstl용 jar파일 주입 -->
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
 	
 		<!-- Test -->
-		<dependency>
+		<dependency>	<!-- Test 폴더에 메스드별로 테스팅이 됨. -->
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>4.12</version>	<!-- 버전이 원래는 4.7버전 인데 4.12버전으로 향상 -->
 			<scope>test</scope>
 		</dependency>        
+		
+		<!-- Jackson-databind : 컨트롤러에서 처리된 결과를 json타입으로 프론트에게 보냄 -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.4</version>
+		</dependency>
+		
+		<!-- 파일 업로드용 코드 -->
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.3</version>
+		</dependency>
+		
+		<!-- servlet-context.xml 필수로 추가할 것
+		<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="utf-8"></beans:property>
+		
+		(1024 * 1024 * 10 bytes 10MB )
+		<beans:property name="maxUploadSize" value="104857560"></beans:property>
+		
+		( 1024 * 1024 * 2 bytes 2MB )
+		<beans:property name="maxUploadSizePerFile"	value="2097152"></beans:property>
+		<beans:property name="uploadTempDir" value="file:/D:/upload/tmp"></beans:property>
+		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
+	</beans:bean>
+	-->
+		
+	
+		
+
+
 	</dependencies>
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-eclipse-plugin</artifactId>
+                <artifactId>maven-eclipse-plugin</artifactId>	<!-- Maven Update Project -->
                 <version>2.9</version>
                 <configuration>
                     <additionalProjectnatures>
@@ -258,10 +310,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.5.1</version>	<!-- 2.5.1 버전을 3.5.1 버전으로 향상 -->
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>11</source>	<!-- JDK 버전 11 향상 -->
+                    <target>11</target>	<!-- JDK 버전 11 향상 -->
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
