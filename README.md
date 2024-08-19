@@ -15,21 +15,21 @@ model = rquest.setAttribute 유사한 역할
 RedirectAttribute 타입은 특별하게도 일회성으로 데이터를 전달하는 용도로 사용 된다.
 
 * Controller 의 리턴 타입
-  1.String : jsp 이용할 경우 jsp파일의 경로와 파일 이름을 나타내기 위해서 사용
+    1.String : jsp 이용할 경우 jsp파일의 경로와 파일 이름을 나타내기 위해서 사용
     String 타입은 상황에 따른 다른 화면을 보여줄 필요가 있을 경우 유용하게 사용한다.
     현재 프로젝트의 경우 jsp 파일의 이름을 의미한다.
   
-  2.void : 호출하는 url과 동일한 이름의 jsp 의미
+    2.void : 호출하는 url과 동일한 이름의 jsp 의미
   
-  3.VO, DTO : 주로 JSON 타입의 데이터를 만들어서 반환하는 용도 사용
+    3.VO, DTO : 주로 JSON 타입의 데이터를 만들어서 반환하는 용도 사용
     브라우저에서 json 타입으로 객체를 변환해서 전달한다.
     스프링MVC에서는 리턴 타입에 맞게 데이터를 변환해 주기 때문에 JSON처리의 별도의 설정은 필요하지 않다!
   
-  4.ResponseEnitiy : response 할 때 http 헤더 정보와 내용을 가공하는 용도 사용
+    4.ResponseEnitiy : response 할 때 http 헤더 정보와 내용을 가공하는 용도 사용
     WEB을 다루다 보면 HttpServletRequet, HttpServletResponse를 직접 핸들링 안해도 작성이 되었기 때문에 ResponseEnity 통해서 원하는 헤더 정보, 데이터 전달 할수       있다.
     ResponseEnitiy는 HttpHeader 객체를 같이 전달할수 있으며 HTTP 헤더 메세지를 가공하는 것이 가능하다.
   
-  5.HttpHeaders : 응답에 내용 없이 http헤더 메세지만 전달하는 용도로 사용.
+    5.HttpHeaders : 응답에 내용 없이 http헤더 메세지만 전달하는 용도로 사용.
 
   
 * 파일 업로드 처리
