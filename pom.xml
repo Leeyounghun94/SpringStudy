@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.lyhcloud</groupId>
+	<groupId>org.zerock</groupId>
 	<artifactId>controller</artifactId>
-	<name>OracleJDBC</name>
+	<name>Board</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -17,7 +17,7 @@
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>	<!-- 스프링 메모리 영역 -->
+			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
 			<exclusions>
 				<!-- Exclude Commons Logging in favor of SLF4j -->
@@ -32,7 +32,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-				
+		
 		<dependency><!-- test 코드 활성화 적용 -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -42,10 +42,8 @@
 		<!-- Test 폴더 필수 코드 -> @Test -> JUnit 메서드 별로 테스트
 			@RunWith(SpringJUnit4ClassRunner.class)	// 메서드별 테스트용(junit4) 
 			@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")	// 참고할 파일
-			@Log4j2
+			@Log4j2	-->
 	
-		-->
-		
 		<dependency>  <!--dto 객체 자동화 lombok 설정-->
 		 <groupId>org.projectlombok</groupId> 
 		 <artifactId>lombok</artifactId> 
@@ -138,16 +136,16 @@
 			<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property> 
 			<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
 				
-		-->	
-			
-		<!-- AspectJ : AOP 관련 설정(445p.) -->
+		-->
+				
+		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
 		
-		<!-- Logging -> 구형 버전이므로 사용 안한다. 하단에 log4j2 코드 추가
+		<!-- Logging 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -188,8 +186,7 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
-		</dependency>
--->
+		</dependency>	-->
 
 		<dependency> 
 		 <groupId>org.apache.logging.log4j</groupId> 
@@ -207,9 +204,10 @@
 		 <artifactId>log4j-slf4j-impl</artifactId> 
 		 <version>2.18.0</version> 
 		 </dependency> 
-<!-- Logging 2021년 보안 이슈화가 되면서 Log4j2를 사용-->
-
-
+		<!-- Logging 2021년 보안 이슈화가 되면서 Log4j2를 사용-->
+		
+		
+		
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -223,37 +221,34 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>provided</scope>
-		</dependency> -->
+		</dependency>	-->
 		
-		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
 		    <version>3.1.0</version>
 		    <scope>provided</scope>
 		</dependency>
-			
 		
-		<dependency>	<!-- 프론트를 jsp로 사용-->
+		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		<dependency> <!-- jstl용 jar파일 주입 -->
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
 	
 		<!-- Test -->
-		<dependency>	<!-- Test 폴더에 메스드별로 테스팅이 됨. -->
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>	<!-- 버전이 원래는 4.7버전 인데 4.12버전으로 향상 -->
+			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>
 		
 		<!-- Jackson-databind : 컨트롤러에서 처리된 결과를 json타입으로 프론트에게 보냄 -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
@@ -285,16 +280,12 @@
 		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
 	</beans:bean>
 	-->
-		
-	
-		
-
-
+		        
 	</dependencies>
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-eclipse-plugin</artifactId>	<!-- Maven Update Project -->
+                <artifactId>maven-eclipse-plugin</artifactId>
                 <version>2.9</version>
                 <configuration>
                     <additionalProjectnatures>
@@ -310,10 +301,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>	<!-- 2.5.1 버전을 3.5.1 버전으로 향상 -->
+                <version>3.5.1</version>
                 <configuration>
-                    <source>11</source>	<!-- JDK 버전 11 향상 -->
-                    <target>11</target>	<!-- JDK 버전 11 향상 -->
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
