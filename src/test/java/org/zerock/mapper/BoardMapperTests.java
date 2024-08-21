@@ -13,6 +13,7 @@ import lombok.extern.log4j.Log4j2;
 @RunWith(SpringJUnit4ClassRunner.class)	// 메서드별 테스트용(junit4) 
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")	// 참고할 파일
 @Log4j2
+//이 3가지 어노테이션은 테스트할때 고정적으로 가져오는 코드.
 public class BoardMapperTests {	//테스트용 코드
 
 	@Setter(onMethod_ = @Autowired)	//생성자 자동 주입
