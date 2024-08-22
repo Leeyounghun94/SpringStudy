@@ -30,6 +30,17 @@ public class BoardController {
 		model.addAttribute("list", service.getlist());	//name : list, Object : List<BoardVO>
 	}
 	
+	@GetMapping("/register")//	http://localhost:80/board/register
+	public void register() {
+		
+		log.info("BoardController.register get 메서드 실행");
+		
+		//리턴이 void -> url과 같은 jsp를 찾는다.	http://localhost:80/board/register.jsp
+		
+	}//이렇게 아무것도 없으면 GetMapping
+	
+	
+	
 	
 	@PostMapping("/register")	//	http://localhost:80/board/register
 	public String register(BoardVO board, RedirectAttributes rttr) {
@@ -42,9 +53,14 @@ public class BoardController {
 		
 		return "redirect:/board/list";	// jsp = response.sendRedirect() 	
 		// 등록 후에는 list페이지로 보낸다. http://localhost:80/board/list
-	}
+		
+	}// 파라미터로 무언가 전달하고자 할때는 PostMapping
 	
-	@GetMapping("/get")
+	
+	
+	@GetMapping({"/get", "/modify"})
+	// 이중화 작업 : http://localhost:80/board/get -> board/get.jsp
+	// 이중화 작업 : http://localhost:80/board/modify -> board/modify.jsp
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		
 		log.info("BoardController.get 메서드 실행");

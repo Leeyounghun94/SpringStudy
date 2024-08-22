@@ -14,6 +14,6 @@ public class BoardVO {
 	private String title;	//제목
 	private String content;	//내용
 	private String writer;	//작성자
-	private Date regate;	//작성일
+	private Date regdate;	//작성일
 	private Date updateDate;	//수정일
 }
