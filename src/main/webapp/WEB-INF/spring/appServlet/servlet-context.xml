@@ -3,44 +3,24 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-   
-   <!-- Enables the Spring MVC @Controller programming model -->
-   <annotation-driven />
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
 
-   <!-- 프론트에 css, html, js, 부트스트랩 등은 여기에 넣어라!!!!! Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-   <resources mapping="/resources/**" location="/resources/" />
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
 
-   <!-- 컨트롤러를 통해 들어오는 경로에 대한 매핑용 Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-   <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-      <beans:property name="prefix" value="/WEB-INF/views/" />
-      <beans:property name="suffix" value=".jsp" />
-   </beans:bean>
-   
-   <!-- 프론트에서 넘어오는 파일에 대한 처리 -->
-   <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-   
-      <!-- 파일명이 한글 일 수 있다. -->
-      <beans:property name="defaultEncoding" value="utf-8"></beans:property>
-      
-      <!-- 묶음 파일 크기 >> 1024 * 1024 * 100 bytes 100MB -->
-      <beans:property name="maxUploadSize" value="1048575600"></beans:property>
-      
-      <!-- 단일 파일 최대 >> 1024 * 1024 * 2 bytes 2MB -->
-      <beans:property name="maxUploadSizePerFile"   value="2097152"></beans:property>
-      
-      <!-- 업로드 저장 경로 d:\upload\tmp >> maxInMemorySize이상 크기가 넘어오면 임시로 보관 -->
-      <beans:property name="uploadTempDir" value="file:/D:/upload/tmp"></beans:property>
-      
-      <!-- 업로드 시 버퍼 용량 maxUploadSize보다 커야 함 -->
-      <beans:property name="maxInMemorySize" value="1048575600"></beans:property>
-   </beans:bean>
-   
-   <!--  URL을 통해 프론트를 매핑하는 곳을 지정(Scan용) , 필요한것 = @Controller -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
 	<context:component-scan base-package="org.zerock.controller" />
 	
 	
