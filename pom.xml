@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zerock</groupId>
 	<artifactId>controller</artifactId>
-	<name>RestTest</name>
+	<name>ex02</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -33,22 +33,22 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
-		<!-- json 추가 -> 3개는 프론트용 결과를 json 타입으로 출력 -->
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- json 추가 -->
+		<!-- url 뒤에 .json 을 넣으면 json데이터로 출력이 된다. https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.6</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<!-- Rest 컨트롤러의 기본값이 xml처리 https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.dataformat</groupId>
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>2.9.6</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -> 구글에서 만든 json타입의 문자열 반환 -->
+		<!-- json을 받아서 객체 처리(구글에서 만든 코드) https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
@@ -68,14 +68,6 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- JDBC 셋팅 1.드라이버 2.커넥션 풀(HikariCP)  3.mybatis(jdbc) 4. jdbclog4j2 -->
-		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
-		<dependency>
-		    <groupId>com.oracle.database.jdbc</groupId>
-		    <artifactId>ojdbc8</artifactId>
-		    <version>23.2.0.0</version>
-		</dependency>	
-		
 		<!-- 커넥션풀용 jdbc https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
 		<dependency>
 		    <groupId>com.zaxxer</groupId>
@@ -83,6 +75,12 @@
 		    <version>2.7.9</version>
 		</dependency>
 		
+		<!-- Ojdbc8 삽입 https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
+		<dependency>
+		    <groupId>com.oracle.database.jdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>23.2.0.0</version>
+		</dependency>
 		<!-- root-context.xml 에 삽입
 		 
 		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
@@ -144,7 +142,7 @@
 		    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
 		    <version>1.16</version>
 		</dependency>
-				
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -152,7 +150,7 @@
 			<version>${org.aspectj-version}</version>
 		</dependency>	
 		
-		<!-- Logging  : log4j는 취약점 발견으로 사용 안함
+		<!-- Logging : log4j는 취약점 발견으로 사용 안함
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -193,9 +191,11 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
-		</dependency>	-->
+		</dependency>
+		-->
 		
-		<!-- log4j2 활성화 : resources log4j2.xml 변경 https://logging.apache.org/log4j/2.x/maven-artifacts.html -->
+		
+		<!-- log4j2 활성화 : src/main/resources에서 log4j2.xml, properties 파일 확인 https://logging.apache.org/log4j/2.x/maven-artifacts.html -->
 		<dependency> 
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-api</artifactId>
@@ -219,15 +219,16 @@
 			<version>1</version>
 		</dependency>
 				
-		<!-- Servlet 구버전 주석처리함 
+		<!-- Servlet -->
+		<!-- 구버전 주석처리함
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>provided</scope>
-		</dependency> -->
-		
-	<!-- 서블릿 버전 향상 https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		</dependency>
+		-->
+		<!-- 서블릿 버전 향상 https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
@@ -274,7 +275,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>2.5.1</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>

@@ -36,9 +36,27 @@ alter table tbl_reply add constraint fk_reply_board foreign key (bno) references
 -- tbl_reply의 bno(자)와 tbl_board의 bno(부)를 연결 (부모가 있어야 자식이 있다) 
 
 
+-- tbl_board 초기화 -> 더미데이터 삽입 -> 댓글 더미데이트 삽입
+
+delete from tbl_board;	--더미데이터 삭제
+
+drop sequence seq_board; -- 자동번호 객체 삭제
+
+create sequence seq_board; -- 자동번호 객체 생성(1번부터 다시 생성됨)
+
+insert into TBL_BOARD (bno,title,content,writer)
+		values (seq_board.nextval, '댓글용 제목', '댓글용 내용', 'kkw'); --11개 삽입
+		
+select * from TBL_BOARD order by bno desc;
 
 
+insert into tbl_reply (rno, bno, reply, replyer) values (seq_reply.nextval, 11, '댓글11', 'kkw');
+insert into tbl_reply (rno, bno, reply, replyer) values (seq_reply.nextval, 10, '댓글10', 'kkw');
+insert into tbl_reply (rno, bno, reply, replyer) values (seq_reply.nextval, 9, '댓글9', 'kkw');
+insert into tbl_reply (rno, bno, reply, replyer) values (seq_reply.nextval, 8, '댓글8', 'kkw');
+insert into tbl_reply (rno, bno, reply, replyer) values (seq_reply.nextval, 7, '댓글7', 'kkw');
+insert into tbl_reply (rno, bno, reply, replyer) values (seq_reply.nextval, 6, '댓글6', 'kkw');
 
+select * from tbl_reply;
 
-
-
+select rno, bno, reply, replyer, replydate, updatedate from tbl_reply where bno = 10 order by rno asc ;
