@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zerock</groupId>
 	<artifactId>controller</artifactId>
-	<name>AopTest</name>
+	<name>Board</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>11</java-version>
 		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.9.0</org.aspectj-version><!-- AOP 관련 버전 향상-->
-		<org.slf4j-version>1.7.25</org.slf4j-version><!-- AOP 관련 버전 향상-->
+		<org.aspectj-version>1.9.0</org.aspectj-version>	<!-- AOP 관련 버전 향상-->
+		<org.slf4j-version>1.7.25</org.slf4j-version>	<!-- AOP 관련 버전 향상-->
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -39,6 +39,11 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
+		<!-- Test 폴더 필수 코드 -> @Test -> JUnit 메서드 별로 테스트
+			@RunWith(SpringJUnit4ClassRunner.class)	// 메서드별 테스트용(junit4) 
+			@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")	// 참고할 파일
+			@Log4j2	-->
+			
 		<dependency>	<!-- 트랜젝션 설정 추가 -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -49,12 +54,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
-		</dependency>
-		
-		<!-- Test 폴더 필수 코드 -> @Test -> JUnit 메서드 별로 테스트
-			@RunWith(SpringJUnit4ClassRunner.class)	// 메서드별 테스트용(junit4) 
-			@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")	// 참고할 파일
-			@Log4j2	-->
+		</dependency>	
 	
 		<dependency>  <!--dto 객체 자동화 lombok 설정-->
 		 <groupId>org.projectlombok</groupId> 
@@ -149,9 +149,8 @@
 			<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
 				
 		-->
-		
 				
-		<!-- AspectJ -> AOP설정 -->
+		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -205,7 +204,7 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
-		</dependency> -->
+		</dependency>	-->
 		
 		<dependency> 
 		 <groupId>org.apache.logging.log4j</groupId> 
@@ -225,7 +224,6 @@
 		 </dependency> 
 		<!-- Logging 2021년 보안 이슈화가 되면서 Log4j2를 사용-->
 
-
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -237,9 +235,9 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<version>3.1.0</version>
 			<scope>provided</scope>
-		</dependency> -->
+		</dependency>	-->
 		
 		<dependency>
 		    <groupId>javax.servlet</groupId>
@@ -259,7 +257,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+	
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -298,8 +296,7 @@
 		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
 	</beans:bean>
 	-->
-		
-		        
+			        
 	</dependencies>
     <build>
         <plugins>
